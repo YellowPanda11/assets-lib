@@ -35,7 +35,8 @@ define(['jquery'], function($) {
       this.removeChild(text);
       return ++nonText >= options.limit;
     }, this);
-    $(this).trigger('input change');
+
+    $(this).trigger('input').trigger('change');
 
     if (window.getSelection) {
       window.getSelection().collapse(this, this.childNodes.length);
@@ -53,13 +54,13 @@ define(['jquery'], function($) {
     if (anchor === this && anchorOffset > 0) {
       if (e) { e.preventDefault(); }
       this.childNodes[anchorOffset - 1].remove();
-      $(this).trigger('input change');
+      $(this).trigger('input').trigger('change');
     }
     else if (anchor.nodeType === Node.TEXT_NODE && anchorOffset === 0) {
       if (anchor.previousSibling) {
         if (e) { e.preventDefault(); }
         anchor.previousSibling.remove();
-        $(this).trigger('input change');
+        $(this).trigger('input').trigger('change');
       }
     }
   },
@@ -73,6 +74,20 @@ define(['jquery'], function($) {
     8: deleteTag
   };
 
+  /**
+   * Transforms the passed input to contain visual tags that wrap textual tags supplied by the user.
+   *
+   * @param  {$}        $context - An input element that should contain tags
+   *
+   * @param  {Object}   options - Configuration options
+   * @param  {Function} options.deserialize - Format: (String) -> Array; Transforms the context's
+   *                                        value into a list of values that should be converted to tags
+   * @param  {Function} options.serialize - Format: (Array) -> String; Transforms the list of tag values
+   *                                      into a format for persistence
+   * @param  {Function} options.template - Format: (String) -> String; Takes a tag value and returns renderable html
+   *
+   * @return {$}        The content-editable div that sits on top of the given context and listens for user interactions
+   */
   return function tagify($context, options) {
     options = options || {};
     var value = $context.val();
@@ -80,7 +95,9 @@ define(['jquery'], function($) {
 
     return $('<div>', {
       contenteditable: true,
-      placeholder: $context[0].placeholder,
+      // We don't want to show the placeholder if there's a value to be shown
+      // Otherwise, the placeholder shows behind tendered tags
+      placeholder: value ? '' : $context[0].placeholder,
       class: $context[0].className
     })
     .on({
