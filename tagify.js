@@ -95,9 +95,7 @@ define(['jquery'], function($) {
 
     return $('<div>', {
       contenteditable: true,
-      // We don't want to show the placeholder if there's a value to be shown
-      // Otherwise, the placeholder shows behind tendered tags
-      placeholder: value ? '' : $context[0].placeholder,
+      placeholder: $context[0].placeholder,
       class: $context[0].className
     })
     .on({
@@ -127,10 +125,13 @@ define(['jquery'], function($) {
           return $(tag).data('value');
         });
 
+        $(this).toggleClass('has-value', value.some(Boolean));
+
         value = options.serialize ? options.serialize(value) : value.join('|');
         $context.val(value);
       }
     })
+    .toggleClass('has-value', value.some(Boolean))
     .insertAfter($context.hide())
     .append(value.filter(Boolean).map(function(data) {
       return render(data, options.template);
