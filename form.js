@@ -3,8 +3,8 @@ define([
   'nbd/Class',
   'nbd/trait/pubsub',
   'nbd/trait/promise',
-  'lib/form/decompose',
-  'lib/xhr'
+  './form/decompose',
+  './xhr'
 ], function(Class, pubsub, Promise, decompose, xhr) {
   'use strict';
 

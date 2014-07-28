@@ -3,8 +3,8 @@ define([
   'nbd/trait/pubsub',
   'nbd/util/construct',
   'nbd/util/extend',
-  'lib/infinitescroll',
-  'lib/xhr'
+  './infinitescroll',
+  './xhr'
 ], function(Class, pubsub, construct, extend, infinitescroll, xhr) {
   'use strict';
 
