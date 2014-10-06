@@ -32,9 +32,9 @@ define(['jquery'], function($) {
       var msg_str;
 
       switch (msg.type) {
-        case 'error' :
-        case 'message' :
-        case 'success' :
+        case 'error':
+        case 'message':
+        case 'success':
           break;
 
         default :
@@ -45,7 +45,7 @@ define(['jquery'], function($) {
         options.fade = false;
       }
 
-      msg_str = '<div class="' + msg.type + '">' +
+      msg_str = '<div class="' + msg.type + '" data-message-type="' + msg.type + '">' +
                 '<span class="icon-status-' + msg.type + ' icon sprite-site-elements"></span>' +
                 msg.message +
                 '</div>';
