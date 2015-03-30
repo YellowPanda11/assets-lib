@@ -30,7 +30,7 @@ define(['jquery', 'nbd/Class'], function($, Class) {
     options: {
       maxLocal: Infinity,
       caseInsensitive: false,
-      minLength: 1,
+      minLength: 1
     },
 
     init: function(options) {
@@ -65,9 +65,6 @@ define(['jquery', 'nbd/Class'], function($, Class) {
     callRemote: function(value) {
       if ($.isFunction(value)) {
         return value(this);
-      }
-      if (typeof value === 'string') {
-        return $.ajax({url: value, data: this});
       }
       return value;
     },
@@ -106,7 +103,7 @@ define(['jquery', 'nbd/Class'], function($, Class) {
 
       if (this._filterMemo[term]) { return this._filterMemo[term]; }
 
-      for (i=0; i < cache.length && results.length < maxLength; ++i) {
+      for (i = 0; i < cache.length && results.length < maxLength; ++i) {
         value = cache[i].value;
 
         if (this.options.caseInsensitive) {
@@ -156,7 +153,7 @@ define(['jquery', 'nbd/Class'], function($, Class) {
      */
     setBlacklist: function(blacklist) {
       this._blacklist = blacklist;
-    },
+    }
   });
 
   function autosource(config) {
