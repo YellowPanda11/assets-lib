@@ -1,0 +1,10 @@
+{
+  "name": "assets-lib",
+  "version": "1.0.0",
+  "description": "Shareable functional modules",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/behance/assets-lib.git"
+  },
+  "license": "ISC"
+}
