@@ -29,12 +29,17 @@ define([
 
   function scroll(context) {
     var $context = context === 'window' ? $window : $(context);
+    var scrollEls = 'window' === context ? $('html,body') : $context;
 
     return function() {
+      var canScroll = scrollEls.toArray().every(function(el) {
+        return $(el).css('overflowY') !== 'hidden';
+      });
+
       var breakpoint, s = scrolled($context);
 
       for (breakpoint in registry[context]) {
-        if (s <= Number(breakpoint)) {
+        if (s <= Number(breakpoint) && canScroll) {
           registry[context][breakpoint].wrapped.forEach(callIt);
         }
       }
